@@ -43,7 +43,17 @@ function playRPS(playSelection, computerSelection){
                 return "Tie! Scissors does nothing to Scissors"
             }
             break;
+        default:
+            return "Invalid input. Please choose between rock, paper, or scissors."
+            break;
     }
 }
 
-console.log(playRPS("Rock", computerPlay()));
+function game(){
+    for (let i = 0; i < 5; i++){
+        let playerInput = prompt("Choose between Rock, Paper, or Scissors")
+        console.log(playRPS(playerInput, computerPlay()));
+    }   
+}
+
+game();
