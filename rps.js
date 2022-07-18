@@ -18,8 +18,10 @@ function playRPS(playSelection, computerSelection){
     switch (player){
         case ("rock"):
             if (computerSelection === "scissors"){
+                playerScore++;
                 return "You win! Rock beats Scissors";
             } else if (computerSelection === "paper"){
+                computerScore++;
                 return "You Lose! Paper beats Rock";
             } else {
                 return "Tie! Rock does nothing to Rock"
@@ -27,8 +29,10 @@ function playRPS(playSelection, computerSelection){
             break;
         case ("paper"):
             if (computerSelection === "rock"){
+                playerScore++;
                 return "You Win! Paper beats Rock";
             } else if (computerSelection === "scissors"){
+                computerScore++;
                 return "You Lose! Scissors beats Paper";
             } else {
                 return "Tie! Paper does nothing to Paper"
@@ -36,8 +40,10 @@ function playRPS(playSelection, computerSelection){
             break;
         case("scissors"):
             if (computerSelection === "paper"){
+                playerScore++;
                 return "You Win! Scissors beats Paper";
             } else if (computerSelection === "rock"){
+                computerScore++;
                 return "You Lose! Rock beats Scissors";
             } else {
                 return "Tie! Scissors does nothing to Scissors"
@@ -49,11 +55,38 @@ function playRPS(playSelection, computerSelection){
     }
 }
 
-function game(){
-    for (let i = 0; i < 5; i++){
-        let playerInput = prompt("Choose between Rock, Paper, or Scissors")
-        console.log(playRPS(playerInput, computerPlay()));
-    }   
+function updateScore(){
+    const playerScore = document.querySelector('#playerScore');
+    const computerScore = document.querySelector('#computerScore');
+    playerScore.textContent = `Your Score: ${playerScore}`;
+    computerScore.textContent = `Computer Score:  ${computerScore}`;
 }
 
-game();
+const rockButton = document.querySelector('#rock');
+const paperButton = document.querySelector('#paper');
+const scissorsButton = document.querySelector('#scissors');
+const results = document.querySelector('#results');
+let playerScore = 0;
+let computerScore = 0;
+
+rockButton.addEventListener('click', () => {
+    let outcome = document.createElement('p');
+    outcome.textContent = playRPS('rock', computerPlay());
+    results.appendChild(outcome);
+    updateScore();
+});
+
+paperButton.addEventListener('click', () => {
+    let outcome = document.createElement('p');
+    outcome.textContent = playRPS('paper', computerPlay());
+    results.appendChild(outcome);
+    updateScore();
+});
+
+scissorsButton.addEventListener('click', () => {
+    let outcome = document.createElement('p');
+    outcome.textContent = playRPS('scissors', computerPlay());
+    results.appendChild(outcome);
+    updateScore();
+});
+
