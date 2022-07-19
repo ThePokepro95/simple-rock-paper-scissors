@@ -56,10 +56,24 @@ function playRPS(playSelection, computerSelection){
 }
 
 function updateScore(){
-    const playerScore = document.querySelector('#playerScore');
-    const computerScore = document.querySelector('#computerScore');
-    playerScore.textContent = `Your Score: ${playerScore}`;
-    computerScore.textContent = `Computer Score:  ${computerScore}`;
+    const pScore = document.querySelector('#playerScore');
+    const cScore = document.querySelector('#computerScore');
+    pScore.textContent = `Your Score: ${playerScore}`;
+    cScore.textContent = `Computer Score:  ${computerScore}`;
+}
+
+function checkScore(){
+    if (playerScore > 4){
+        const finishedMessage = document.createElement('p');
+        finishedMessage.textContent = "You have 5 points! You win!";
+        results.appendChild(finishedMessage);
+        finished = true;
+    } else if (computerScore > 4){
+        const finishedMessage = document.createElement('p');
+        finishedMessage.textContent = "Computer has 5 points! Computer wins!";
+        results.appendChild(finishedMessage);
+        finished = true;
+    }
 }
 
 const rockButton = document.querySelector('#rock');
@@ -68,25 +82,32 @@ const scissorsButton = document.querySelector('#scissors');
 const results = document.querySelector('#results');
 let playerScore = 0;
 let computerScore = 0;
+let finished = false;
 
 rockButton.addEventListener('click', () => {
+    if (finished) return;
     let outcome = document.createElement('p');
     outcome.textContent = playRPS('rock', computerPlay());
     results.appendChild(outcome);
     updateScore();
+    checkScore();
 });
 
 paperButton.addEventListener('click', () => {
+    if (finished) return;
     let outcome = document.createElement('p');
     outcome.textContent = playRPS('paper', computerPlay());
     results.appendChild(outcome);
     updateScore();
+    checkScore();
 });
 
 scissorsButton.addEventListener('click', () => {
+    if (finished) return;
     let outcome = document.createElement('p');
     outcome.textContent = playRPS('scissors', computerPlay());
     results.appendChild(outcome);
     updateScore();
+    checkScore();
 });
 
